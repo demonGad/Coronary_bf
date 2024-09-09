@@ -1,0 +1,330 @@
+# depslib dependency file v1.0
+1637517916 source:/media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/BloodFFR.cpp
+	"CalculationMethods.h"
+	<chrono>
+
+1631627352 
+
+1637507527 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/TreeInit.h
+	"TreeInitTD.h"
+
+1717321966 D.h"
+
+1637339448 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/TreeInitTD.h
+	"TDVesselWrite.h"
+	<string>
+
+1637518133 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/TDVesselWrite.h
+	"TaskData.h"
+
+1717325913 h"
+
+1634907054 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/TaskData.h
+	<iostream>
+	<fstream>
+	"Globals.h"
+	<omp.h>
+
+1717324737 "
+
+1635615862 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/Globals.h
+	<string>
+	"TreeDataIndepend.h"
+	"TDGlobals.h"
+
+1717268503 .h"
+
+1635278666 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/TreeDataIndepend.h
+	"TreeDataDepend.h"
+	<vector>
+
+1631627351 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/TreeDataDepend.h
+	<string>
+	<vector>
+	"CalcUtils.h"
+
+1635271581 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/CalcUtils.h
+	<string>
+	<vector>
+	<cmath>
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+
+1631627351 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/TDGlobals.h
+	<string>
+	<cmath>
+
+1637507400 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/CalculationMethods.h
+	"Predictor.h"
+	"Granuslov.h"
+	"omp.h"
+
+1637174140 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/Predictor.h
+	"TreeInit.h"
+	"tuple"
+	"Subroutines.h"
+
+1637174142 es.h"
+
+1637074249 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/Subroutines.h
+
+1637504819 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/Granuslov.h
+	"TDGranuslov.h"
+
+1637504820 ov.h"
+
+1637504819 /media/user/DATA/Mint/CodeBlocks/Projects/BloodFFR/TDGranuslov.h
+
+1647588069 source:d:\blood\cpp\bloodffr\bloodffr.cpp
+	"CalculationMethods.h"
+	<chrono>
+
+1637507400 d:\blood\cpp\bloodffr\calculationmethods.h
+	"Predictor.h"
+	"Granuslov.h"
+	"omp.h"
+
+1637174140 d:\blood\cpp\bloodffr\predictor.h
+	"TreeInit.h"
+	"tuple"
+	"Subroutines.h"
+
+1637507527 d:\blood\cpp\bloodffr\treeinit.h
+	"TreeInitTD.h"
+
+1637339448 d:\blood\cpp\bloodffr\treeinittd.h
+	"TDVesselWrite.h"
+	<string>
+
+1637518133 d:\blood\cpp\bloodffr\tdvesselwrite.h
+	"TaskData.h"
+
+1634907054 d:\blood\cpp\bloodffr\taskdata.h
+	<iostream>
+	<fstream>
+	"Globals.h"
+	<omp.h>
+
+1635615862 d:\blood\cpp\bloodffr\globals.h
+	<string>
+	"TreeDataIndepend.h"
+	"TDGlobals.h"
+
+1635278666 d:\blood\cpp\bloodffr\treedataindepend.h
+	"TreeDataDepend.h"
+	<vector>
+
+1631627351 d:\blood\cpp\bloodffr\treedatadepend.h
+	<string>
+	<vector>
+	"CalcUtils.h"
+
+1635271581 d:\blood\cpp\bloodffr\calcutils.h
+	<string>
+	<vector>
+	<cmath>
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+
+1631627351 d:\blood\cpp\bloodffr\tdglobals.h
+	<string>
+	<cmath>
+
+1637074249 d:\blood\cpp\bloodffr\subroutines.h
+
+1637504819 d:\blood\cpp\bloodffr\granuslov.h
+	"TDGranuslov.h"
+
+1637504819 d:\blood\cpp\bloodffr\tdgranuslov.h
+
+1717169103 source:d:\blood\cpp\bloood\bloodffr.tar\bloodffr\bloodffr.cpp
+	"CalculationMethods.h"
+	<chrono>
+
+1717321997 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\calculationmethods.h
+	"Predictor.h"
+	"Granuslov.h"
+	"omp.h"
+
+1637174142 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\predictor.h
+	"TreeInit.h"
+	"tuple"
+	"Subroutines.h"
+
+1717321966 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\treeinit.h
+	"TreeInitTD.h"
+
+1637339450 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\treeinittd.h
+	"TDVesselWrite.h"
+	<string>
+
+1717325913 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\tdvesselwrite.h
+	"TaskData.h"
+
+1717324737 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\taskdata.h
+	<iostream>
+	<fstream>
+	"Globals.h"
+	<omp.h>
+
+1635615864 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\globals.h
+	<string>
+	"TreeDataIndepend.h"
+	"TDGlobals.h"
+
+1717268515 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\treedataindepend.h
+	"TreeDataDepend.h"
+	<vector>
+
+1717268503 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\treedatadepend.h
+	<string>
+	<vector>
+	"CalcUtils.h"
+
+1635271582 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\calcutils.h
+	<string>
+	<vector>
+	<cmath>
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+
+1631627352 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\tdglobals.h
+	<string>
+	<cmath>
+
+1637074250 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\subroutines.h
+
+1637504820 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\granuslov.h
+	"TDGranuslov.h"
+
+1637504820 d:\blood\cpp\bloood\bloodffr.tar\bloodffr\tdgranuslov.h
+
+1717169104 source:/home/timur/Blood/BloodFFR/BloodFFR.cpp
+	"CalculationMethods.h"
+	<chrono>
+
+1717321998 /home/timur/Blood/BloodFFR/CalculationMethods.h
+	"Predictor.h"
+	"Granuslov.h"
+	"omp.h"
+
+1637174142 /home/timur/Blood/BloodFFR/Predictor.h
+	"TreeInit.h"
+	"tuple"
+	"Subroutines.h"
+
+1717321968 /home/timur/Blood/BloodFFR/TreeInit.h
+	"TreeInitTD.h"
+
+1637339450 /home/timur/Blood/BloodFFR/TreeInitTD.h
+	"TDVesselWrite.h"
+	<string>
+
+1717428523 /home/timur/Blood/BloodFFR/TDVesselWrite.h
+	"TaskData.h"
+
+1717343209 /home/timur/Blood/BloodFFR/TaskData.h
+	<iostream>
+	<fstream>
+	"Globals.h"
+	<omp.h>
+
+1635615864 /home/timur/Blood/BloodFFR/Globals.h
+	<string>
+	"TreeDataIndepend.h"
+	"TDGlobals.h"
+
+1717268516 /home/timur/Blood/BloodFFR/TreeDataIndepend.h
+	"TreeDataDepend.h"
+	<vector>
+
+1717268504 /home/timur/Blood/BloodFFR/TreeDataDepend.h
+	<string>
+	<vector>
+	"CalcUtils.h"
+
+1635271582 /home/timur/Blood/BloodFFR/CalcUtils.h
+	<string>
+	<vector>
+	<cmath>
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+
+1631627352 /home/timur/Blood/BloodFFR/TDGlobals.h
+	<string>
+	<cmath>
+
+1637074250 /home/timur/Blood/BloodFFR/Subroutines.h
+
+1637504820 /home/timur/Blood/BloodFFR/Granuslov.h
+	"TDGranuslov.h"
+
+1637504820 /home/timur/Blood/BloodFFR/TDGranuslov.h
+
+1717921116 source:d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\bloodffr.cpp
+	"CalculationMethods.h"
+	<chrono>
+
+1717921141 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\calculationmethods.h
+	"Predictor.h"
+	"Granuslov.h"
+	"omp.h"
+
+1717767571 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\predictor.h
+	"TreeInit.h"
+	"tuple"
+	"Subroutines.h"
+
+1717775519 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\treeinit.h
+	"TreeInitTD.h"
+
+1717786054 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\treeinittd.h
+	"TDVesselWrite.h"
+	<string>
+
+1717786054 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\tdvesselwrite.h
+	"TaskData.h"
+
+1717786054 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\taskdata.h
+	<iostream>
+	<fstream>
+	"Globals.h"
+	<omp.h>
+
+1635615864 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\globals.h
+	<string>
+	"TreeDataIndepend.h"
+	"TDGlobals.h"
+
+1717764111 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\treedataindepend.h
+	"TreeDataDepend.h"
+	<vector>
+
+1717268504 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\treedatadepend.h
+	<string>
+	<vector>
+	"CalcUtils.h"
+
+1635271582 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\calcutils.h
+	<string>
+	<vector>
+	<cmath>
+	<iostream>
+	<stdlib.h>
+	<stdio.h>
+
+1631627352 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\tdglobals.h
+	<string>
+	<cmath>
+
+1717767571 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\subroutines.h
+
+1717921038 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\granuslov.h
+	"TDGranuslov.h"
+
+1717786089 d:\blood\cpp\bloodffr_cpp_06.2024\bloodffr\tdgranuslov.h
+

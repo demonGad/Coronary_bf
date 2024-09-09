@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="BloodFFR" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/BloodFFR" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/BloodFFR" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O3" />
+					<Add option="-m64" />
+				</Compiler>
+				<Linker>
+					<Add option="-O3" />
+					<Add option="-static-libstdc++" />
+					<Add option="-static-libgcc" />
+					<Add option="-static" />
+					<Add option="-m64" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Linker>
+			<Add option="-O3" />
+			<Add option="-static-libstdc++" />
+			<Add option="-static-libgcc" />
+			<Add option="-static" />
+		</Linker>
+		<Unit filename="BloodFFR.cpp" />
+		<Unit filename="CalcUtils.h" />
+		<Unit filename="CalculationMethods.h" />
+		<Unit filename="Globals.h" />
+		<Unit filename="Granuslov.h" />
+		<Unit filename="Predictor.h" />
+		<Unit filename="Subroutines.h" />
+		<Unit filename="TDGlobals.h" />
+		<Unit filename="TDGranuslov.h" />
+		<Unit filename="TDVesselWrite.h" />
+		<Unit filename="TaskData.h" />
+		<Unit filename="TreeDataDepend.h" />
+		<Unit filename="TreeDataIndepend.h" />
+		<Unit filename="TreeInit.h" />
+		<Unit filename="TreeInitTD.h" />
+		<Unit filename="a.out" />
+		<Unit filename="compile.sh" />
+		<Unit filename="ini/globals.ini" />
+		<Unit filename="ini/lymphatics.ini" />
+		<Unit filename="ini/towrite.ini" />
+		<Unit filename="ini/zadacha.ini" />
+		<Unit filename="paths.ini" />
+		<Unit filename="time.tres" />
+		<Unit filename="tree0/branch.tre" />
+		<Unit filename="tree0/knot.tre" />
+		<Unit filename="tree0/result/p/0000.tres" />
+		<Unit filename="tree0/result/p/0001.tres" />
+		<Unit filename="tree0/result/q/0000.tres" />
+		<Unit filename="tree0/result/q/0001.tres" />
+		<Unit filename="tree0/result/s/0000.tres" />
+		<Unit filename="tree0/result/s/0001.tres" />
+		<Unit filename="tree0/result/tree0.dmp" />
+		<Unit filename="tree0/result/u/0000.tres" />
+		<Unit filename="tree0/result/u/0001.tres" />
+		<Unit filename="tree0/tree.tre" />
+		<Unit filename="tsteps.tres" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>
