@@ -42,7 +42,7 @@ int main( ) {
 		TreeLst.resize( Z.Ntr );
 		for ( long i = 0; i < Z.Ntr; i++ ) {
 			TreeLst [ i ].ID = i+1;
-			TreeInitialization( TreeLst [ i ] , Z );
+ 			TreeInitialization( TreeLst [ i ] , Z );
 			TreeInitializationTD( TreeLst [ i ] , Z );
 			InitDataTD( TreeLst [ i ] , Z );
 		}

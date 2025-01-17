@@ -5,62 +5,55 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Файлы ресурсов">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{15a24f98-b6f6-4be5-9629-8ec14b91c112}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\BloodFFR.cpp">
+    <ClCompile Include="BloodFFR.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\CalculationMethods.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Globals.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\CalcUtils.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Granuslov.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\Globals.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Predictor.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\Granuslov.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Subroutines.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\Predictor.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="TaskData.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\Subroutines.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="TDGlobals.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\TaskData.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="TDGranuslov.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\TDGlobals.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="TDVesselWrite.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\TDGranuslov.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="TreeDataDepend.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\TDVesselWrite.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="TreeDataIndepend.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\TreeDataDepend.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="TreeInit.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\TreeDataIndepend.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\TreeInit.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Desktop\Coronary blood flow\BloodFFR\TreeInitTD.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="TreeInitTD.h">
+      <Filter>Файлы ресурсов</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

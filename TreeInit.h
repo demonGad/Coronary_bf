@@ -61,27 +61,7 @@ namespace TreeInit {
 		//LCA and Aorta
 		fin >> Tr.NknL;
 
-		Tr.K[0].ID = 1;
-		Tr.K[0].C.X = 0.0;
-	    Tr.K[0].C.Y = 0.0;
-	    Tr.K[0].C.Z = -1.0;
-	    Tr.K[0].IG = 2;
-
-	    fin >> tmp_i;
-	    Tr.K[1].ID = 2;
-	    fin >> Tr.K[1].C.X;
-        fin >> Tr.K[1].C.Y;	//
-        fin >> Tr.K[1].C.Z;	//
-        fin >> tmp_i;
-        Tr.K[1].IG = 1;
-
-        Tr.K[2].ID = 3;
-		Tr.K[2].C.X = 1.0;
-	    Tr.K[2].C.Y = 1.0;
-	    Tr.K[2].C.Z = -10.0;
-	    Tr.K[2].IG = 2;
-
-        addKn = 2;
+        addKn = 0;																							//UPDATE
 		for ( long i = 1; i < Tr.NknL; i++ ) {
 			fin >> ID;
 			ID = ID + addKn;
@@ -117,63 +97,12 @@ namespace TreeInit {
 		//----------------------------------- Reading Branches  --------------------------------
 
 
-		//Aorta
-
-		Tr.B[0].ID = 1;
-		Tr.B[0].myTreeID = Tr.ID;
-		Tr.B[0].InvertPoints = 0;
-		Tr.B[0].len = 5.2;
-		Tr.B[0].width = 2.17;
-		Tr.B[0].pts = 11;
-		Tr.B[0].Kn1 = &Tr.K[0];
-		Tr.B[0].Kn2 = &Tr.K[1];
-		Tr.B[0].group = 0;
-		Tr.B[0].dx = Tr.B[0].len / double( Tr.B[0].pts - 1);
-		Tr.B[0].stenType = 0;
-
-		Tr.B[0].Pave.resize( Tr.B [0].pts);
-		Tr.B[0].Qave = 0;
-        for ( long j = 0; j < Tr.B [0].pts; j++ ){
-            Tr.B[0].Pave[j] = 0;
-        }
-
-		Tr.B[0].VB.resize( Z.Cor );
-        Tr.B[0].VBO.resize( Z.Cor );
-        for ( long i = 0; i < Z.Cor; i++ ) {
-            Tr.B[0].VB[i].resize( Tr.B[0].pts );
-            Tr.B[0].VBO[i].resize( Tr.B[0].pts );
-        }
-
-        Tr.B[1].ID = 2;
-		Tr.B[1].myTreeID = Tr.ID;
-		Tr.B[1].InvertPoints = 0;
-		Tr.B[1].len = 100;
-		Tr.B[1].width = 2.5;
-		Tr.B[1].pts = 101;
-		Tr.B[1].Kn1 = &Tr.K[1];
-		Tr.B[1].Kn2 = &Tr.K[2];
-		Tr.B[1].group = 0;
-		Tr.B[1].dx = Tr.B[1].len / double( Tr.B[1].pts - 1);
-		Tr.B[1].stenType = 0;
-		Tr.B[1].Pave.resize( Tr.B [1].pts);
-		Tr.B[1].Qave = 0;
-        for ( long j = 0; j < Tr.B [1].pts; j++ ){
-            Tr.B[1].Pave[j] = 0;
-        }
-
-		Tr.B[1].VB.resize( Z.Cor );
-        Tr.B[1].VBO.resize( Z.Cor );
-        for ( long i = 0; i < Z.Cor; i++ ) {
-            Tr.B[1].VB[i].resize( Tr.B[1].pts );
-            Tr.B[1].VBO[i].resize( Tr.B[1].pts );
-        }
-
-
+		//Aorta																										//UPDATE
         //LCA
 		fin >> Tr.NbrL;
 
-        addBr = 2;
-        addKn = 2;
+        addBr = 0;
+        addKn = 0;
 		for ( long i = 0; i < Tr.NbrL; i++ ) {
 			fin >> ID;
 			ID = ID + addBr;
@@ -219,7 +148,7 @@ namespace TreeInit {
 			}
 
 			 Tr.B[ID - 1].stenType = 0;
-			 Tr.B[ID - 1].Pave.resize( Tr.B [ ID - 1 ].pts);
+			 Tr.B[ID - 1].Pave.resize( Tr.B [ ID - 1 ].pts);                                             ///Поломка
 			 Tr.B[ID - 1].Qave = 0;
 			 for ( long j = 0; j < Tr.B [ ID - 1 ].pts; j++ ){
                 Tr.B[ID - 1].Pave[j] = 0;
@@ -236,7 +165,8 @@ namespace TreeInit {
 			}
 		} // LCA for-loop
 
-		Tr.B[2].Kn1 = &Tr.K[1]; //connect LCA root to aorta
+
+		Tr.B[0].Kn1 = &Tr.K[0]; //connect LCA root to aorta										 //UPDATE
 
 		//RCA
 
@@ -244,7 +174,7 @@ namespace TreeInit {
 
 
 
-		addBr = Tr.NbrL + 2;
+		addBr = Tr.NbrL;																		//UPDATE
         addKn = Tr.NknL + 1;
 
 		for ( long i = 0; i < Tr.NbrR; i++ ) {
@@ -308,7 +238,7 @@ namespace TreeInit {
 			}
 		} // RCA for-loop
 
-        Tr.B[Tr.NbrL + 3 - 1].Kn1 = &Tr.K[1]; // connect to aorta
+        Tr.B[Tr.NbrL + 1 - 1].Kn1 = &Tr.K[0]; // connect to aorta															//UPDATE
 
         fin >> Z.Nsten;
         if (Z.Nsten > 0)
@@ -318,9 +248,9 @@ namespace TreeInit {
 
                 fin >> tmp_i;
                 if (tmp_i == 1)
-                    addBr = 2;
+                    addBr = 0;																								//UPDATE																				
                 else
-                    addBr = Tr.NbrL + 2;
+                    addBr = Tr.NbrL + 0;																					//UPDATE
 
                 if ((tmp_i != 1)&&(tmp_i != 2))
                     cout << "Wrong stenosis segment tree" << endl;

@@ -138,6 +138,16 @@ namespace Granuslov {
         return res;
     }
 
+    vector<double> vecDif(vector<double> x1, vector<double> x2, int N) {
+
+        vector<double> res(N, 0.0);
+
+        for (long i = 0; i < N; i++)
+            res[i] = x1[i] - x2[i];
+
+        return res;
+    }
+
     vector<double> vecSc (vector<double> x1, double a, int N){
 
         vector<double> res(N,0.0);
@@ -179,6 +189,55 @@ namespace Granuslov {
 
     }
 
+
+    void CalculateAortaKnot(Zadacha& Z, long kID, vector<Vetv*> brou, long N) {
+        long szin, szou;
+        double Qin, R, Pout, C, alfr, betr, alfl, betl, P_r, P_l;
+
+        szou = 2;
+
+        double P_prev; // pressure on previous step
+
+
+        vector<double> A(2), Aprev(2);
+
+
+        vector<double> out(3), F(1, 0.0), A(1, 0.0), A1(1, 0.0);
+
+        double eps = 0.0000001, uslov = 10 * eps, Al = 0.0, Ar = 0.0, Al1, Ar1;
+
+        Matrix YAC(1, 1);
+
+        tie(alfl, betl) = IncomingCompatibilityCoeffs(Z, *brou[0]);               //coef for left coronary artery
+        tie(alfr, betr) = IncomingCompatibilityCoeffs(Z, *brou[1]);               //coef for right coronary artery
+
+        out = (*(brou[1])).URSOB((*(brou[1])).VB[0][0], (*(brou[1])).VB[1][0]);
+
+
+        P_prev = out[0];
+        Qin = getInFlow(Z);
+        Pout = Z.Pout;
+        R = Z.Res;
+        C = Z.Comp;
+
+        while (uslov < eps) {
+            P_r = Pr(Ar); P_l = Pl(Al);
+            F[0] = -Qin + (P_r - Pout) / R + C + (P_r - P_prev) / dt + alfl * Al * Al + Al * betl + alfr * Ar * Ar + Ar * betr;
+            F[1] = P_l - P_r;
+
+            YAC(0, 0) = 2 * alfl * Al + betl;
+            YAC(0, 1) = derPr(Ar) * (1 / R + C / dt) + 2 * alfr * Ar + betr;
+            YAC(1, 0) = derPl(Al);
+            YAC(1, 1) = -derPr(Ar);
+
+            A = vecDif(A1, YAC.MulVr(F), 2);
+
+            uslov = vecNorm(vecDif(A, A1, 2));
+
+            A1[0] = A[0]; A1[1] = A[1];
+        }
+
+    }
 
     void CalculateCommonKnot(Zadacha& Z, long kID, vector<Vetv*> brin, vector<Vetv*> brou, long N){
 
@@ -319,41 +378,50 @@ namespace Granuslov {
     }
 
     inline void Grtoch(Zadacha& Z , Derevo& Tr , Uzel& kn){
-
+        float Pa_cur, PPc, PPz;
 
         if ((kn.IG == FLOW)&&((kn.Nin + kn.Nou) == 1)){
             //cout << "Here Bound  " <<  T <<  "  id = "<<  kn.ID <<endl;
             TDGrtoch(Z, Tr, kn); // inner or outer knot
         }
-        else if ((kn.Nin + kn.Nou) > 1)
-        {
+        else if ((kn.Nou == 2) && (kn.Nin == 0)) { //–ассчитываем по модели Windkessel
+            //cout << "Aorta Windkessel" << endl;
+
+            CalculateAortaKnot(Z, kn.ID, kn.Bou, kn.Nou + kn.Nin);
+        }
+        else if ((kn.Nin + kn.Nou) > 1 && (kn.Nin != 0)) {
 
             //CallID is removed
             //cout << "Here Inner  " <<  T <<  "  id = "<<  kn.ID <<endl;
             CalculateCommonKnot(Z, kn.ID, kn.Bin, kn.Bou, kn.Nou + kn.Nin); // simplified, kn.ID - for error messages
 
-            /* Debug
-
-            cout << "kn.ID  " << kn.ID << endl;
-
-            for (long i = 0; i < kn.Bin.size(); i++ ){
-
-                    cout << "IDin  " << (*kn.Bin[i]).ID << endl;
-                    cout << "S  " << (*(kn.Bin[i])).VB[0][(*(kn.Bin[i])).pts - 1];
-                    cout << "   U  " << (*(kn.Bin[i])).VB[1][(*(kn.Bin[i])).pts - 1] << endl;
+        }
+        //ѕроверка на физиологичность         <-берем только каждый третий цикл
+        if ((Z.N_heart_cycles != 0) && (Z.N_heart_cycles % 3 == 0)) {
+            Pa_cur = Tr.B[0].URSOB(Tr.B[0].VB[0][0], Tr.B[0].VB[1][0])[0] / 1333.2;
+            if (Z.flag == 1) {
+                Z.Pmax_aortic = Pa_cur;
+                Z.Pmin_aortic = Pa_cur;
+                Z.flag = 0;
             }
 
-            for (long i = 0; i < kn.Bou.size(); i++ ){
-
-                    cout << "IDou  " << (*kn.Bou[i]).ID << endl;
-                    cout << "S  " << (*(kn.Bou[i])).VB[0][0];
-                    cout << "   U  " << (*(kn.Bou[i])).VB[1][0] << endl;
+            if (Pa_cur > Z.Pmax_aortic) {
+                Z.Pmax_aortic = Pa_cur;
             }
+            if (Pa_cur < Z.Pmin_aortic) {
+                Z.Pmin_aortic = Pa_cur;
+            }
+        }
+        if (Z.flag2 == 1) {
+            PPc = Z.Pmax_aortic - Z.Pmin_aortic;
+            PPz = (Z.Ps - Z.Pd);
+            if (abs(PPc - PPz) > 1) {
+                Z.Comp *= PPc / (Z.Ps - Z.Pd);
+            }
+            Z.flag2 = 0;
 
-            cout << "kn.ID  " << kn.ID << endl;
-            */
-
-
+            Z.Pmin_aortic = 0.0;
+            Z.Pmax_aortic = 0.0;
         }
     }
 };

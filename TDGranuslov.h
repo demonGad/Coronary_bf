@@ -16,6 +16,11 @@ namespace TDGranuslov {
 
                 Z.T_last_Hbeat = Z.T_last_Hbeat + Z.h_period_curr;
                 Z.N_heart_cycles += 1;
+
+                Z.flag = 1;
+                if (Z.N_heart_cycles % 3 == 1) {
+                    Z.flag2 = 1;
+                }
             }
 
             Tc = 60/Z.HR;

@@ -25,10 +25,18 @@ namespace TaskData {
 		long Cor , ID , Ntr , useDump , Nmatter , useLungs , useExtImpactToLungs , useOrgans , useFlowAveraging , calcMax , useGravity , useSaveDump , writePmax;
 		double TQaver0; // период вычисления первоначального усредненного потока
 		double TQaver; // период вычисления усредненного потока
-		double Kur , P_barorec , h_period_new , T_last_Hbeat , h_period_curr , N_heart_cycles , Pnapol; //с конца : давление наполнени¤ , число завершенных сердечных циклов , длина текущего периода , врем¤ окончани¤ последнего периода
+		double Kur , P_barorec , h_period_new , T_last_Hbeat , h_period_curr , Pnapol; //с конца : давление наполнени¤ , число завершенных сердечных циклов , длина текущего периода , врем¤ окончани¤ последнего периода
 		double Tc_st , S_st; //stenosis
 
-		double corPres, vasCoef, Qratio, diamCoef, Pmean, Pveins;
+
+		int N_heart_cycles;
+		bool flag, flag2; //флаги для одномерной оптимизации параметров Comp и Pout
+		double Pmax_aortic, Pmin_aortic;
+		double Ps, Pd; //Заданные систолическое и диастолическое давления
+		double Comp; //Заданный параметр жесткости 
+
+
+		double corPres, vasCoef, Qratio, diamCoef, Pmean, Pout;
 		double HR, SV, Res, PWV, PowM, NL, NR;
 		double Tsl, Tsr, Tfl, Tfr, TsH, TfH;  //inside heart period
 
@@ -71,8 +79,11 @@ namespace TaskData {
 			HR = tmp[21];
 			SV = tmp[22];
 			Pmean = tmp[23];
-			Pveins = tmp[24];
+			Pout = tmp[24];
 			Debug = tmp[25];
+			Comp = tmp[26];
+			Pd = tmp[27];
+			Ps = tmp[28];
 
 			// номера ветвей для отслеживания должны быть расположены в порядке возрастания
 			filename = Globals::SharedDirectory + "ini" + slash + "towrite.ini";
