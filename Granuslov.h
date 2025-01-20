@@ -192,49 +192,82 @@ namespace Granuslov {
 
     void CalculateAortaKnot(Zadacha& Z, long kID, vector<Vetv*> brou, long N) {
         long szin, szou;
-        double Qin, R, Pout, C, alfr, betr, alfl, betl, P_r, P_l;
+        double Qin, R, Pout, C, alfr, betr, alfl, betl;
+        bool T = true;
+        
+        int num = 0;
+
 
         szou = 2;
 
-        double P_prev; // pressure on previous step
+        vector<double> Pprev(2);
+        vector<double> A(2,0.0), Aprev(2,0.0);
 
 
-        vector<double> A(2), Aprev(2);
+        vector<double> outr(3), outl(3), F(2, 0.0);
+
+        double eps = 1e-6, dPr, dPl;
+
+        Matrix YAC(2, 2);
+
+        outr = (*(brou[1])).URSOB((*(brou[1])).VB[0][0], (*(brou[1])).VB[1][0]);
 
 
-        vector<double> out(3), F(1, 0.0), A(1, 0.0), A1(1, 0.0);
-
-        double eps = 0.0000001, uslov = 10 * eps, Al = 0.0, Ar = 0.0, Al1, Ar1;
-
-        Matrix YAC(1, 1);
-
-        tie(alfl, betl) = IncomingCompatibilityCoeffs(Z, *brou[0]);               //coef for left coronary artery
-        tie(alfr, betr) = IncomingCompatibilityCoeffs(Z, *brou[1]);               //coef for right coronary artery
-
-        out = (*(brou[1])).URSOB((*(brou[1])).VB[0][0], (*(brou[1])).VB[1][0]);
+        Aprev[0] = (*(brou[0])).VB[0][0];
+        Aprev[1] = (*(brou[1])).VB[0][0];
 
 
-        P_prev = out[0];
         Qin = getInFlow(Z);
+
         Pout = Z.Pout;
         R = Z.Res;
         C = Z.Comp;
 
-        while (uslov < eps) {
-            P_r = Pr(Ar); P_l = Pl(Al);
-            F[0] = -Qin + (P_r - Pout) / R + C + (P_r - P_prev) / dt + alfl * Al * Al + Al * betl + alfr * Ar * Ar + Ar * betr;
-            F[1] = P_l - P_r;
+        while (T == true) {
+            tie(alfl, betl) = IncomingCompatibilityCoeffs(Z, *brou[0]);               //coef for left coronary artery
+            tie(alfr, betr) = IncomingCompatibilityCoeffs(Z, *brou[1]);               //coef for right coronary artery
 
-            YAC(0, 0) = 2 * alfl * Al + betl;
-            YAC(0, 1) = derPr(Ar) * (1 / R + C / dt) + 2 * alfr * Ar + betr;
-            YAC(1, 0) = derPl(Al);
-            YAC(1, 1) = -derPr(Ar);
+            outr = (*(brou[1])).URSOB((*(brou[1])).VB[0][0], (*(brou[1])).VB[1][0]);
+            outl = (*(brou[0])).URSOB((*(brou[0])).VB[0][0], (*(brou[0])).VB[1][0]);
 
-            A = vecDif(A1, YAC.MulVr(F), 2);
+            Pprev[0] = outl[0];
+            Pprev[1] = outr[0];
 
-            uslov = vecNorm(vecDif(A, A1, 2));
+            dPr = outr[1];
+            dPl = outl[1];
 
-            A1[0] = A[0]; A1[1] = A[1];
+
+            F[0] = -Qin + (Pprev[1] - Pout) / R + C * dPr + alfl * Aprev[0] * Aprev[0] + Aprev[0] * betl + alfr * Aprev[1] * Aprev[1] + Aprev[1] * betr;
+            F[1] = Pprev[0] - Pprev[1];
+
+            YAC(0, 0) = 2 * alfl * Aprev[0] + betl;
+            YAC(0, 1) = dPr* (1 / R + C / dt) + 2 * alfr * Aprev[1] + betr;
+            YAC(1, 0) = dPl;
+            YAC(1, 1) = -dPr;
+
+            A = vecDif(Aprev, YAC.MulVr(F), 2);          
+             
+            
+            (*(brou[0])).VB[0][0] = A[0];
+            (*(brou[0])).VB[1][0] = alfl * A[0] + betl;
+
+            (*(brou[1])).VB[0][0] = A[1];
+            (*(brou[1])).VB[1][0] = alfr * A[1] + betr;
+
+            num++;
+            
+            if (vecNorm(vecDif(A, Aprev, 2)) < eps) {
+                T = false;
+            }
+
+            Aprev = A;
+
+            if (num > 1e4) {
+                T = false;
+            }
+        }
+        if (num > 1e4){
+            cerr << "Iterations limit at aorta" << endl;
         }
 
     }
@@ -292,7 +325,7 @@ namespace Granuslov {
 
             X0 = YAC_inv.MulVr(F);
 
-            p = 0;
+            /*p = 0;
             //cout << "Here before p  " <<  T <<  "  id = "<<  kID <<endl;
             while (p < 10){
 
@@ -318,7 +351,7 @@ namespace Granuslov {
                     p = 10;
                 }
 
-            }
+            }*/
             //cout << "Here after p  " <<  T <<  "  id = "<<  kID <<endl;
 
 

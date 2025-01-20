@@ -34,7 +34,7 @@ namespace TreeInit {
 		Tr.inputdata =  trim( SharedDirectory ) + "input_data.tre";
 		Tr.FFRfile =  trim( SharedDirectory ) + "FFR.tre";
 		Tr.FFRfullfile =  trim( SharedDirectory ) + "FFRfull.tre";
-		Tr.branchfilename = trim( SharedDirectory ) + "tree1" + trim( Adjustl( NID ) ) + slash + "branch.tre";
+		//Tr.branchfilename = trim( SharedDirectory ) + "tree1" + trim( Adjustl( NID ) ) + slash + "branch.tre";
 
         ofstream fou;
         fou.open(Tr.FFRfile);
@@ -47,11 +47,11 @@ namespace TreeInit {
 
 
 		cout << "Intialization of tree " << endl;
-		ifstream fin( Tr.branchfilename, ifstream::in );
+		ifstream fin( Tr.inputdata, ifstream::in );
 		fin >> tmp_i;
-		Tr.Nkn = tmp_i + 1;
+		Tr.Nkn = tmp_i - 1;
 		fin >> tmp_i;
-		Tr.Nbr = tmp_i + 2;
+		Tr.Nbr = tmp_i;
 
 		Tr.B = new  Vetv [ Tr.Nbr ];
 		Tr.K = new  Uzel [ Tr.Nkn ];
@@ -62,7 +62,7 @@ namespace TreeInit {
 		fin >> Tr.NknL;
 
         addKn = 0;																							//UPDATE
-		for ( long i = 1; i < Tr.NknL; i++ ) {
+		for ( long i = 0; i < Tr.NknL; i++ ) {
 			fin >> ID;
 			ID = ID + addKn;
 			Tr.K [ ID - 1 ].ID = ID;
@@ -81,7 +81,7 @@ namespace TreeInit {
 		fin >> tmp_d;
 		fin >> tmp_i;
 
-		addKn = Tr.NknL + 1;
+		addKn = Tr.NknL - 1;																					//UPDATE
 
 		for ( long i = 1; i < Tr.NknR; i++ ) {
 			fin >> ID;
@@ -148,7 +148,7 @@ namespace TreeInit {
 			}
 
 			 Tr.B[ID - 1].stenType = 0;
-			 Tr.B[ID - 1].Pave.resize( Tr.B [ ID - 1 ].pts);                                             ///Поломка
+			 Tr.B[ID - 1].Pave.resize( Tr.B [ ID - 1 ].pts);                                       
 			 Tr.B[ID - 1].Qave = 0;
 			 for ( long j = 0; j < Tr.B [ ID - 1 ].pts; j++ ){
                 Tr.B[ID - 1].Pave[j] = 0;
@@ -166,7 +166,7 @@ namespace TreeInit {
 		} // LCA for-loop
 
 
-		Tr.B[0].Kn1 = &Tr.K[0]; //connect LCA root to aorta										 //UPDATE
+		//Tr.B[0].Kn1 = &Tr.K[0]; //connect LCA root to aorta										 //UPDATE
 
 		//RCA
 
@@ -175,7 +175,7 @@ namespace TreeInit {
 
 
 		addBr = Tr.NbrL;																		//UPDATE
-        addKn = Tr.NknL + 1;
+        addKn = Tr.NknL - 1;
 
 		for ( long i = 0; i < Tr.NbrR; i++ ) {
 			fin >> ID;
@@ -238,7 +238,7 @@ namespace TreeInit {
 			}
 		} // RCA for-loop
 
-        Tr.B[Tr.NbrL + 1 - 1].Kn1 = &Tr.K[0]; // connect to aorta															//UPDATE
+        Tr.B[Tr.NbrL].Kn1 = &Tr.K[0]; // connect to aorta													     			//UPDATE
 
         fin >> Z.Nsten;
         if (Z.Nsten > 0)

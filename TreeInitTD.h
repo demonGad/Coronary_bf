@@ -55,15 +55,12 @@ namespace TreeInitTD {
 
 		//  group: 1 - RCA  per, 2 - LCA per, 3 - RCA not per, 4 - LCA not per, 0 - rest
 
-		if (br.ID > 2){
-
-            br.TD.c = br.TD.c*1.2;
-            if (Z.vasCoef > 0){
-                br.width = br.width*Z.diamCoef;
-                br.TD.R = br.TD.R*Z.vasCoef;
-                //cout << br.ID  <<" : " << br.TD.R <<endl;
+        br.TD.c = br.TD.c*1.2;
+        if (Z.vasCoef > 0){
+            br.width = br.width*Z.diamCoef;
+            br.TD.R = br.TD.R*Z.vasCoef;
+            //cout << br.ID  <<" : " << br.TD.R <<endl;
             }
-		}
 
 		br.TD.Rinit = br.TD.R;
 
@@ -171,19 +168,22 @@ namespace TreeInitTD {
         CO = Z.HR*Z.SV/60;
         //Z.Pout = 33;
 		//Tr.B[1].TD.R = (Z.Pmean - Z.Pveins)*1333.22/(CO*(1.0 - Z.Qratio));      // (Pmean - Pvein)/Qa
-		Tr.B[1].TD.R = (Z.Pmean - Z.Pout)*1333.22/CO;
+		Z.Pmean = 0.4 * Z.Ps + 0.6 * Z.Pd;
+		Z.Res = (Z.Pmean - Z.Pout)*1333.22/CO;
+
 		//cout << "R Aorta: " << Tr.B[1].TD.R << endl;
 		//ResCor = (Z.Pmean - Z.Pveins)*1333.22/(CO*Z.Qratio);                    // (Pmean - Pvein)/Qcor
-		ResCor = Tr.B[1].TD.R * 19;
+		ResCor = Z.Res * 19;
 		//cout << "ResCor: " << ResCor << endl;
-		d_l = Tr.B[2].width;                                                    // LCA diameter
-		d_r = Tr.B[Tr.NbrL + 2].width;                                          // RCA diameter
+		
+		d_l = Tr.B[0].width;                                                    // LCA diameter
+		d_r = Tr.B[Tr.NbrL].width;                                          // RCA diameter
 
 		R_l = ResCor*(1 + pow((d_r/d_l),Z.PowM));
 		R_r = ResCor*(1 + pow((d_l/d_r),Z.PowM));
 
-        PrescribeRes(Z,Tr,Tr.B[2],R_l);
-        PrescribeRes(Z,Tr,Tr.B[Tr.NbrL + 2],R_r);
+        PrescribeRes(Z,Tr,Tr.B[0],R_l);
+        PrescribeRes(Z,Tr,Tr.B[Tr.NbrL],R_r);
 
 		// end of Resistances distribution
 
