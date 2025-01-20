@@ -339,7 +339,7 @@ namespace TreeInitTD {
 	    double Pout;
 
 	    //Pout = Z.Pveins*1333.2;
-	    Pout = 10665;
+	    Pout = Z.Pout * 1333.2;
 	    //Pout = 33*1333.2;
 
 		for ( long i = 0; i < Tr.Nbr; i++ ) {

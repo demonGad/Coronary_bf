@@ -191,7 +191,7 @@ namespace Granuslov {
 
 
     void CalculateAortaKnot(Zadacha& Z, long kID, vector<Vetv*> brou, long N) {
-        long szin, szou;
+        long szou;
         double Qin, R, Pout, C, alfr, betr, alfl, betl;
         bool T = true;
         
@@ -200,21 +200,22 @@ namespace Granuslov {
 
         szou = 2;
 
+        double Prt0; // Давление на предыдущем шаге по времени в ПКА
         vector<double> Pprev(2);
-        vector<double> A(2,0.0), Aprev(2,0.0);
+        vector<double> A(2), Aprev(2);
 
 
-        vector<double> outr(3), outl(3), F(2, 0.0);
+        vector<double> outr(3), outl(3), F(2);
 
         double eps = 1e-6, dPr, dPl;
 
         Matrix YAC(2, 2);
 
-        outr = (*(brou[1])).URSOB((*(brou[1])).VB[0][0], (*(brou[1])).VB[1][0]);
+        outr = (*(brou[1])).URSOB((*(brou[1])).VBO[0][0], (*(brou[1])).VBO[1][0]);
+        Prt0 = outr[0];
 
-
-        Aprev[0] = (*(brou[0])).VB[0][0];
-        Aprev[1] = (*(brou[1])).VB[0][0];
+        Aprev[0] = (*(brou[0])).VBO[0][0];
+        Aprev[1] = (*(brou[1])).VBO[0][0];
 
 
         Qin = getInFlow(Z);
@@ -229,7 +230,7 @@ namespace Granuslov {
 
             outr = (*(brou[1])).URSOB((*(brou[1])).VB[0][0], (*(brou[1])).VB[1][0]);
             outl = (*(brou[0])).URSOB((*(brou[0])).VB[0][0], (*(brou[0])).VB[1][0]);
-
+            //cout << (*(brou[1])).VB[1][0] << endl;
             Pprev[0] = outl[0];
             Pprev[1] = outr[0];
 
@@ -237,15 +238,22 @@ namespace Granuslov {
             dPl = outl[1];
 
 
-            F[0] = -Qin + (Pprev[1] - Pout) / R + C * dPr + alfl * Aprev[0] * Aprev[0] + Aprev[0] * betl + alfr * Aprev[1] * Aprev[1] + Aprev[1] * betr;
+            F[0] = -Qin + (Pprev[1] - Pout) / R + C * (Pprev[1] - Prt0) / dt + Aprev[0]*(alfl*Aprev[0]+betl) + Aprev[1]*(alfr*Aprev[1]+betr);
             F[1] = Pprev[0] - Pprev[1];
+
+            //cout << "F = [" << F[0] << ",   " << F[1] << "]" << endl;
 
             YAC(0, 0) = 2 * alfl * Aprev[0] + betl;
             YAC(0, 1) = dPr* (1 / R + C / dt) + 2 * alfr * Aprev[1] + betr;
             YAC(1, 0) = dPl;
             YAC(1, 1) = -dPr;
 
-            A = vecDif(Aprev, YAC.MulVr(F), 2);          
+            //cout << dPl << "    " << betl << endl;
+
+           /* cout << YAC(0, 0) << "   " << YAC(0, 1) << endl;
+            cout << YAC(1, 0) << "   " << YAC(1, 1) << endl;*/
+            
+            A = vecDif(Aprev, (YAC.InvMatrix()).MulVr(F), 2);
              
             
             (*(brou[0])).VB[0][0] = A[0];
