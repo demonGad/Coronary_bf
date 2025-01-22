@@ -18,7 +18,7 @@ namespace TDGranuslov {
                 Z.N_heart_cycles += 1;
 
                 Z.flag = 1;
-                if (Z.N_heart_cycles % 3 == 1) {
+                if ((Z.N_heart_cycles % 3 == 1) && (Z.N_heart_cycles != 1)) {
                     Z.flag2 = 1;
                 }
             }
@@ -97,7 +97,7 @@ namespace TDGranuslov {
 
         //Pout = Z.Pveins*1333.2;
 
-        Pout = Pout = 10665;
+        Pout = Z.Pout;// = 10665;
 
         Pcor = 0; // external Pressure, we assume it to be 0
 
@@ -174,6 +174,7 @@ namespace TDGranuslov {
 
                 //if (T > 5.0)
                 //    Qin = 0;
+                cout << "We shouldn't be here " << endl;
 
                 V = TDFlowToSU(Z, Tr, kn, Qin);
 

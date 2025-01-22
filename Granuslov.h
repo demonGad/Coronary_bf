@@ -433,7 +433,7 @@ namespace Granuslov {
         else if ((kn.Nin + kn.Nou) > 1 && (kn.Nin != 0)) {
 
             //CallID is removed
-            //cout << "Here Inner  " <<  T <<  "  id = "<<  kn.ID <<endl;
+             //cout << "Here Inner  " <<  T <<  "  id = "<<  kn.ID <<endl;
             CalculateCommonKnot(Z, kn.ID, kn.Bin, kn.Bou, kn.Nou + kn.Nin); // simplified, kn.ID - for error messages
 
         }
@@ -456,9 +456,20 @@ namespace Granuslov {
         if (Z.flag2 == 1) {
             PPc = Z.Pmax_aortic - Z.Pmin_aortic;
             PPz = (Z.Ps - Z.Pd);
-            if (abs(PPc - PPz) > 1) {
-                Z.Comp *= PPc / (Z.Ps - Z.Pd);
-            }
+            //if (abs(PPc - PPz) > 1) {
+            //    Z.Comp *= PPc / (Z.Ps - Z.Pd);
+            //    cout << "Z.Ps - Z.Pd" << PPc << endl;                                                                                //Error
+            //    cout << "Z.Comp is changed. New value is " << Z.Comp << endl;
+            //}
+            //if (PPc < Z.Pout) {
+            //    Z.Pout += 0.1 * abs(PPc- Z.Pout);
+            //    cout << "Z.Pout is changed. New value is " << Z.Pout << endl;
+            //}
+            //else {
+            //    Z.Pout -= 0.1 * abs(PPc - Z.Pout);
+            //    cout << "Z.Pout is changed. New value is " << Z.Pout << endl;
+            //}
+
             Z.flag2 = 0;
 
             Z.Pmin_aortic = 0.0;

@@ -55,6 +55,10 @@ int main( ) {
 	//--------------------------- Цикл по времени ----------------------------------
 	cout  << "Start calculations" << endl;
 
+	//Засекаем время выполнения вычислений
+	clock_t start, end;
+	start = clock();
+
 	//std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
 	//std::chrono::steady_clock::time_point curtime;
 	//std::chrono::steady_clock::time_point mark1;
@@ -140,6 +144,11 @@ int main( ) {
 
 
 	}  // end of main time loop
+
+	end = clock();
+
+	double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
+	cout << "Time taken by program is : " << time_taken << " sec." << endl;
 //#endif
 	//----------converting results for JCNetwork-------------------
 #ifdef JCNetwork

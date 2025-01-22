@@ -30,7 +30,7 @@ namespace TaskData {
 
 
 		int N_heart_cycles;
-		bool flag, flag2; //флаги дл€ одномерной оптимизации параметров Comp и Pout
+		bool flag = 0, flag2 = 0; //флаги дл€ одномерной оптимизации параметров Comp и Pout
 		double Pmax_aortic, Pmin_aortic;
 		double Ps, Pd; //«аданные систолическое и диастолическое давлени€
 		double Comp; //«аданный параметр жесткости 
@@ -84,6 +84,11 @@ namespace TaskData {
 			Comp = tmp[26];
 			Pd = tmp[27];
 			Ps = tmp[28];
+
+			//ќценка Pout и Compliance
+			Pout = 0.7 * Pd;
+			Comp = SV / (Ps - Pd);
+
 
 			// номера ветвей дл€ отслеживани€ должны быть расположены в пор€дке возрастани€
 			filename = Globals::SharedDirectory + "ini" + slash + "towrite.ini";

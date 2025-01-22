@@ -5,6 +5,8 @@
 //#include "TaskData.h"
 #include "TDVesselWrite.h"
 #include <string>
+#include <windows.h>
+#include <codecvt>
 
 namespace TreeInitTD {
 
@@ -13,6 +15,41 @@ namespace TreeInitTD {
 	//using namespace TreeDataIndepend;
 	//using namespace TreeDataDepend;
 	using namespace TDVesselWrite;
+
+
+	//Для очищения директорий с выводами модели
+	std::wstring stringToWstring(const std::string& str) {
+		std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+		return converter.from_bytes(str);
+	}
+	void deleteFilesInDirectory(const std::wstring& directoryPath) {
+		std::wstring searchPath = directoryPath + L"\\*";
+		WIN32_FIND_DATAW findFileData;
+		HANDLE hFind = FindFirstFileW(searchPath.c_str(), &findFileData);
+
+		if (hFind == INVALID_HANDLE_VALUE) {
+			std::wcerr << L"Invalid directory path.\n";
+			return;
+		}
+
+		do {
+			const std::wstring fileOrDirName = findFileData.cFileName;
+			if (fileOrDirName != L"." && fileOrDirName != L"..") {
+				std::wstring filePath = directoryPath + L"\\" + fileOrDirName;
+				if (!(findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+					if (DeleteFileW(filePath.c_str())) {
+						//std::wcout << L"Deleted: " << filePath << '\n';
+					}
+					else {
+						std::wcerr << L"Failed to delete: " << filePath << '\n';
+					}
+				}
+			}
+		} while (FindNextFileW(hFind, &findFileData) != 0);
+
+		FindClose(hFind);
+	}
+
 
 	vector<string> SetExtraName(long TreeID) {
 		if (TreeID == LYMPHATIC) {
@@ -231,6 +268,8 @@ namespace TreeInitTD {
             for (int i = 0; i < var_name.size(); ++i)
             {
                 var_name[i] =  trim( SharedDirectory ) + trim( fname_base ) + var_name[i] + slash;
+				std::wstring wideFolderPath = stringToWstring(var_name[i]);
+				deleteFilesInDirectory(wideFolderPath);
                 //cout << var_name[i] << " ";
                 //LResult = system( ( "mkdir " + var_name[i] ).c_str( ) );
             }

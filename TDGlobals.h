@@ -10,7 +10,7 @@ namespace TDGlobals {
 	long NBeats_prev;
 	double T_last_Hbeat; //время завершения последнего сердечного цикла
 	double h_period_curr; //длина текущего сердечного цикла
-	long N_heart_cycles; //число сердечных циклов (завершенных) ; надо будет запихнуть эту переменную в поля класса "задача" 
+	//long N_heart_cycles; //число сердечных циклов (завершенных) ; надо будет запихнуть эту переменную в поля класса "задача" 
 	double rho_air;
 	double timeForTrack;
 
