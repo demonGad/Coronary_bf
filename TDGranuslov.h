@@ -29,7 +29,7 @@ namespace TDGranuslov {
             Tf = 0.3;
 
             if ((Tcur > Ts)&&(Tcur < Tf))
-                Qin = (Z.SV*PI/(2*(Tf - Ts)))*sin(PI*(Tcur - Ts)/(Tf - Ts));
+                Qin = 2.5*(Z.SV*PI/(2*(Tf - Ts)))*sin(PI*(Tcur - Ts)/(Tf - Ts));
             else
                 Qin = 0;
 

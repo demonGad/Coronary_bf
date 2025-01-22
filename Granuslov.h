@@ -225,8 +225,8 @@ namespace Granuslov {
         C = Z.Comp;
 
         while (T == true) {
-            tie(alfl, betl) = IncomingCompatibilityCoeffs(Z, *brou[0]);               //coef for left coronary artery
-            tie(alfr, betr) = IncomingCompatibilityCoeffs(Z, *brou[1]);               //coef for right coronary artery
+            tie(alfl, betl) = OutgoingCompatibilityCoeffs(Z, *brou[0]);               //coef for left coronary artery
+            tie(alfr, betr) = OutgoingCompatibilityCoeffs(Z, *brou[1]);               //coef for right coronary artery
 
             outr = (*(brou[1])).URSOB((*(brou[1])).VB[0][0], (*(brou[1])).VB[1][0]);
             outl = (*(brou[0])).URSOB((*(brou[0])).VB[0][0], (*(brou[0])).VB[1][0]);
@@ -454,21 +454,21 @@ namespace Granuslov {
             }
         }
         if (Z.flag2 == 1) {
-            PPc = Z.Pmax_aortic - Z.Pmin_aortic;
-            PPz = (Z.Ps - Z.Pd);
-            //if (abs(PPc - PPz) > 1) {
-            //    Z.Comp *= PPc / (Z.Ps - Z.Pd);
-            //    cout << "Z.Ps - Z.Pd" << PPc << endl;                                                                                //Error
-            //    cout << "Z.Comp is changed. New value is " << Z.Comp << endl;
-            //}
-            //if (PPc < Z.Pout) {
-            //    Z.Pout += 0.1 * abs(PPc- Z.Pout);
-            //    cout << "Z.Pout is changed. New value is " << Z.Pout << endl;
-            //}
-            //else {
-            //    Z.Pout -= 0.1 * abs(PPc - Z.Pout);
-            //    cout << "Z.Pout is changed. New value is " << Z.Pout << endl;
-            //}
+            PPc = (Z.Pmax_aortic - Z.Pmin_aortic) * 1333.22;
+            PPz = (Z.Ps - Z.Pd) * 1333.22;
+            if (abs(PPc - PPz) > 1) {
+                Z.Comp *= PPc / PPz;
+                //cout << "Z.Ps - Z.Pd = " << PPc << endl;                                                                                //Error
+                cout << "Z.Comp is changed. New value is " << Z.Comp << endl;
+            }
+            if (Z.Pmin_aortic < Z.Pd) {
+                Z.Pout += 1.6 * abs(Z.Pmin_aortic - Z.Pd) * 1333.22;
+                cout << "Z.Pout is changed. New value is " << Z.Pout / 1333.22 << " mmHg" << endl;
+            }
+            else {
+                Z.Pout -= 1.6 * abs(Z.Pmin_aortic - Z.Pd) * 1333.22;
+                cout << "Z.Pout is changed. New value is " << Z.Pout / 1333.22 << " mmHg" << endl;
+            }
 
             Z.flag2 = 0;
 

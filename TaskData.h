@@ -86,7 +86,8 @@ namespace TaskData {
 			Ps = tmp[28];
 
 			//ќценка Pout и Compliance
-			Pout = 0.7 * Pd;
+			Pmean *= 1333.22; //to mmHg // owerwrite in  TreeInitTD
+			Pout = 0.7 * Pd * 1333.22;
 			Comp = SV / (Ps - Pd);
 
 
