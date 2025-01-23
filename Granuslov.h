@@ -224,12 +224,12 @@ namespace Granuslov {
         R = Z.Res;
         C = Z.Comp;
 
-        while (T == true) {
-            tie(alfl, betl) = OutgoingCompatibilityCoeffs(Z, *brou[0]);               //coef for left coronary artery
-            tie(alfr, betr) = OutgoingCompatibilityCoeffs(Z, *brou[1]);               //coef for right coronary artery
+        tie(alfl, betl) = OutgoingCompatibilityCoeffs(Z, *brou[0]);               //coef for left coronary artery
+        tie(alfr, betr) = OutgoingCompatibilityCoeffs(Z, *brou[1]);               //coef for right coronary artery
 
-            outr = (*(brou[1])).URSOB((*(brou[1])).VB[0][0], (*(brou[1])).VB[1][0]);
-            outl = (*(brou[0])).URSOB((*(brou[0])).VB[0][0], (*(brou[0])).VB[1][0]);
+        while (T == true) {
+            outr = (*(brou[1])).URSOB(A[1], alfr * A[1] + betr);
+            outl = (*(brou[0])).URSOB(A[0], alfl * A[0] + betl);
             //cout << (*(brou[1])).VB[1][0] << endl;
             Pprev[0] = outl[0];
             Pprev[1] = outr[0];
@@ -253,14 +253,7 @@ namespace Granuslov {
            /* cout << YAC(0, 0) << "   " << YAC(0, 1) << endl;
             cout << YAC(1, 0) << "   " << YAC(1, 1) << endl;*/
             
-            A = vecDif(Aprev, (YAC.InvMatrix()).MulVr(F), 2);
-             
-            
-            (*(brou[0])).VB[0][0] = A[0];
-            (*(brou[0])).VB[1][0] = alfl * A[0] + betl;
-
-            (*(brou[1])).VB[0][0] = A[1];
-            (*(brou[1])).VB[1][0] = alfr * A[1] + betr;
+            A = vecDif(Aprev, (YAC.InvMatrix()).MulVr(F), 2);     
 
             num++;
             
@@ -278,6 +271,15 @@ namespace Granuslov {
             cerr << "Iterations limit at aorta" << endl;
         }
 
+        if (((A[0] > 0) != true) or ((A[1] > 0) != true)) {
+            cerr << "A in aorta is incorrect" << endl;
+        }
+
+        (*(brou[0])).VB[0][0] = A[0];
+        (*(brou[0])).VB[1][0] = alfl * A[0] + betl;
+
+        (*(brou[1])).VB[0][0] = A[1];
+        (*(brou[1])).VB[1][0] = alfr * A[1] + betr;
     }
 
     void CalculateCommonKnot(Zadacha& Z, long kID, vector<Vetv*> brin, vector<Vetv*> brou, long N){
@@ -439,7 +441,7 @@ namespace Granuslov {
         }
         //Проверка на физиологичность         <-берем только каждый третий цикл
         if ((Z.N_heart_cycles != 0) && (Z.N_heart_cycles % 3 == 0)) {
-            Pa_cur = Tr.B[0].URSOB(Tr.B[0].VB[0][0], Tr.B[0].VB[1][0])[0] / 1333.2;
+            Pa_cur = Tr.B[0].URSOB(Tr.B[0].VB[0][0], Tr.B[0].VB[1][0])[0];
             if (Z.flag == 1) {
                 Z.Pmax_aortic = Pa_cur;
                 Z.Pmin_aortic = Pa_cur;
@@ -454,19 +456,19 @@ namespace Granuslov {
             }
         }
         if (Z.flag2 == 1) {
-            PPc = (Z.Pmax_aortic - Z.Pmin_aortic) * 1333.22;
-            PPz = (Z.Ps - Z.Pd) * 1333.22;
+            PPc = (Z.Pmax_aortic - Z.Pmin_aortic);
+            PPz = (Z.Ps - Z.Pd);
             if (abs(PPc - PPz) > 1) {
                 Z.Comp *= PPc / PPz;
                 //cout << "Z.Ps - Z.Pd = " << PPc << endl;                                                                                //Error
                 cout << "Z.Comp is changed. New value is " << Z.Comp << endl;
             }
             if (Z.Pmin_aortic < Z.Pd) {
-                Z.Pout += 1.6 * abs(Z.Pmin_aortic - Z.Pd) * 1333.22;
+                Z.Pout += abs(Z.Pmin_aortic - Z.Pd);
                 cout << "Z.Pout is changed. New value is " << Z.Pout / 1333.22 << " mmHg" << endl;
             }
             else {
-                Z.Pout -= 1.6 * abs(Z.Pmin_aortic - Z.Pd) * 1333.22;
+                Z.Pout -= abs(Z.Pmin_aortic - Z.Pd);
                 cout << "Z.Pout is changed. New value is " << Z.Pout / 1333.22 << " mmHg" << endl;
             }
 

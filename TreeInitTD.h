@@ -202,11 +202,8 @@ namespace TreeInitTD {
 
 		// Resistances distribution
 
-        CO = Z.HR*Z.SV/60;
-        //Z.Pout = 33;
-		//Tr.B[1].TD.R = (Z.Pmean - Z.Pveins)*1333.22/(CO*(1.0 - Z.Qratio));      // (Pmean - Pvein)/Qa
-		Z.Pmean = (0.4 * Z.Ps + 0.6 * Z.Pd) * 1333.22;
-		Z.Res = (Z.Pmean - Z.Pout) / CO;//*1333.22/CO;
+                //Z.Pout = 33;
+		//Tr.B[1].TD.R = (Z.Pmean - Z.Pveins)*1333.22/(CO*(1.0 - Z.Qratio));      // (Pmean - Pvein)/Qa 
 
 		//cout << "R Aorta: " << Tr.B[1].TD.R << endl;
 		//ResCor = (Z.Pmean - Z.Pveins)*1333.22/(CO*Z.Qratio);                    // (Pmean - Pvein)/Qcor
@@ -377,7 +374,6 @@ namespace TreeInitTD {
 
 	    double Pout;
 
-	    //Pout = Z.Pveins*1333.2;
 		Pout = Z.Pout;// *1333.2;
 	    //Pout = 33*1333.2;
 

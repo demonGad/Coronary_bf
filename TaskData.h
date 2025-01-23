@@ -27,7 +27,7 @@ namespace TaskData {
 		double TQaver; // период вычисления усредненного потока
 		double Kur , P_barorec , h_period_new , T_last_Hbeat , h_period_curr , Pnapol; //с конца : давление наполнени¤ , число завершенных сердечных циклов , длина текущего периода , врем¤ окончани¤ последнего периода
 		double Tc_st , S_st; //stenosis
-
+		double CO;
 
 		int N_heart_cycles;
 		bool flag = 0, flag2 = 0; //флаги для одномерной оптимизации параметров Comp и Pout
@@ -86,10 +86,15 @@ namespace TaskData {
 			Ps = tmp[28];
 
 			//Оценка Pout и Compliance
-			Pmean *= 1333.22; //to mmHg // owerwrite in  TreeInitTD
-			Pout = 0.7 * Pd * 1333.22;
-			Comp = SV / (Ps - Pd);
+			Ps *= 1333.22; //to mmHg
+			Pd *= 1333.22;
+			Pmean = (0.4 * Ps + 0.6 * Pd); 
+			Pout = 0.7 * Pd;
 
+			Comp = 0.5 * SV / (Ps - Pd);
+			
+			CO = HR * SV / 60;
+			Res = (Pmean - Pout) / CO;
 
 			// номера ветвей для отслеживания должны быть расположены в порядке возрастания
 			filename = Globals::SharedDirectory + "ini" + slash + "towrite.ini";

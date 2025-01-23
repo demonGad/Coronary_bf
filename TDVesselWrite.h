@@ -113,7 +113,7 @@ namespace TDVesselWrite {
 			fout.open (Tr.B[i].TD.fnameVar[Z.Cor], ofstream::app); // Z.Cor = 2
 			for (int k = 0; k < Tr.B[i].pts; k++) { 			// p
 				out =  Tr.B[i].URSOB(Tr.B[i].VB[0][k],Tr.B[i].VB[1][k]);
-				p = out[0]/1333.2;
+				p = out[0]/1333.22; //Выводим в mmHg
 				fout << p << endl;
 			}
 			fout.close();
@@ -127,7 +127,7 @@ namespace TDVesselWrite {
 
 			fout.open (Tr.B[i].TD.fnameVar[Z.Cor + 2], ofstream::app);
 			for (int k = 0; k < Tr.B[i].pts; k++) { 			// pave
-				p = Tr.B[i].TD.Pave_next/1333.2;
+				p = Tr.B[i].TD.Pave_next/1333.2;//Выводим в mmHg
 				fout << p << endl;
 			}
 			fout.close();

@@ -16,7 +16,7 @@ namespace TDGlobals {
 
 	// LYMPHATIC SYSTEM
 	// Pressure equation P = teta(S-S0) + Ampl*sin(omega(X - vel*T))
-	double teta , Pin , Pout , Ampl , vel , omega;
+	double teta , Pin , Ampl , vel , omega;
 	inline double LymPofS (double S, double S0, double x, double t) {
 		return teta * ( S - S0 ) + Ampl * sin( omega * ( x - vel * t ) );
 	}
