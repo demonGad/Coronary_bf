@@ -93,7 +93,7 @@ namespace TreeDataIndepend {
 		    vector<double> FPR(2);
 
 		    FPR[0] = 0;
-		    FPR[1] = (-8.0)*(3.1415926)*(0.04)*u/S;
+		    FPR[1] = (-22.0)*(3.1415926)*(0.04)*u/S;                                          //changed from jordi
 
 		    return FPR;
 		}

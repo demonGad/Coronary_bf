@@ -157,10 +157,11 @@ int main( ) {
 	}
 #endif
 
-	//WriteFFR(TreeLst[0] , Z);
+	WriteFFR(TreeLst[0] , Z);
 
 	//cout << "WORKS!!!" << endl;
 	//getchar( );
+	system("pause");
 	return 0;
 }
 

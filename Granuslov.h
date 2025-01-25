@@ -219,17 +219,22 @@ namespace Granuslov {
 
 
         Qin = getInFlow(Z);
-
+           
         Pout = Z.Pout;
         R = Z.Res;
         C = Z.Comp;
+
+        if (brou[0] == nullptr || brou[1] == nullptr) {
+            std::cerr << "Error: Null pointer in brou array" << std::endl;
+            return;
+        }
 
         tie(alfl, betl) = OutgoingCompatibilityCoeffs(Z, *brou[0]);               //coef for left coronary artery
         tie(alfr, betr) = OutgoingCompatibilityCoeffs(Z, *brou[1]);               //coef for right coronary artery
 
         while (T == true) {
-            outr = (*(brou[1])).URSOB(A[1], alfr * A[1] + betr);
-            outl = (*(brou[0])).URSOB(A[0], alfl * A[0] + betl);
+            outr = (*(brou[1])).URSOB(Aprev[1], alfr * Aprev[1] + betr);
+            outl = (*(brou[0])).URSOB(Aprev[0], alfl * Aprev[0] + betl);
             //cout << (*(brou[1])).VB[1][0] << endl;
             Pprev[0] = outl[0];
             Pprev[1] = outr[0];

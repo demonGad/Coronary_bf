@@ -189,7 +189,7 @@ namespace Subroutines {
 
         b = (OC[1] - sigm*NF[1] + a*(sigm*NF[0] - OC[0]) + FPR[1]*dt - a*FPR[0]*dt)/(1 - sigm);
 
-        return {a,b};
+        return { a,b };
 
     }
 

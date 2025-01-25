@@ -24,14 +24,16 @@ namespace TDGranuslov {
             }
 
             Tc = 60/Z.HR;
-            Tcur = (T - Z.T_last_Hbeat)/Tc;
+            Tcur = (T - Z.T_last_Hbeat);
             Ts = 0;
-            Tf = 0.3;
+            Tf = 0.3 * Tc;
 
             if ((Tcur > Ts)&&(Tcur < Tf))
                 Qin = (Z.SV*PI/(2*(Tf - Ts)))*sin(PI*(Tcur - Ts)/(Tf - Ts));
             else
                 Qin = 0;
+            
+            Z.Qin_ = Qin;
 
             return Qin;
     }
@@ -193,8 +195,8 @@ namespace TDGranuslov {
                 idx2 = (*brp).pts - 2;
 
                 Tc = 60/Z.HR;
-                if (Tc != 1.0)
-                    cout << "Tc is odd, Tc = " << Tc << endl;
+                /*if (Tc != 1.0)
+                    cout << "Tc is odd, Tc = " << Tc << endl;*/
                 Tcur = (T - Z.T_last_Hbeat)/Tc;
                 Ts = 0;
                 Tf = 0.3;

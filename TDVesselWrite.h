@@ -89,7 +89,8 @@ namespace TDVesselWrite {
 // может работать долго, потому что вычисляет давление
 	void WriteResultV(Derevo& Tr , Zadacha& Z) {
 		double p;
-		ofstream fout;
+		double Qr, Ql, Qin;
+		ofstream fout, fout1, fout2;
 		vector<double> out(3);
 
 		//int cur_track = 0; // если пишутся не все ветви
@@ -122,6 +123,13 @@ namespace TDVesselWrite {
 			for (int k = 0; k < Tr.B[i].pts; k++) { 			// q
 				p = Tr.B[i].VB[0][k]*Tr.B[i].VB[1][k];
 				fout << p << endl;
+
+				if ((i == 0) and (k ==0)) {
+					Ql = p;
+				}
+				if ((i == Tr.NbrL) and (k == 0)) {
+					Qr = p;
+				}
 			}
 			fout.close();
 
@@ -131,8 +139,18 @@ namespace TDVesselWrite {
 				fout << p << endl;
 			}
 			fout.close();
-
         }
+
+
+		//Поток в аорте
+		fout.open(Tr.B[0].TD.fnameVar[Z.Cor + 3], ofstream::app); // Записываем поток в аорте
+		
+		Qin = Z.Qin_;
+
+		fout << Qin -  Ql - Qr  << endl;
+
+		fout.close();
+
 		//WriteResultTD(Tr , Z);
 		TDGlobals::isFirstTime = 0;
 	}
@@ -201,11 +219,15 @@ namespace TDVesselWrite {
 	    double Pd,Pa, FFR, placeholder;
 	    long id_next, addBr, nd;
 
+		int ind;
+		vector<double> outr(3);
+
 	    ofstream fou;
         fou.open(Tr.FFRfile);
 
         placeholder = - 1.5;
-        Pa = Tr.B[0].Pave[5];
+                                         //Changed
+		Pa = Tr.B[0].Pave[0]; // P in aorta average
 
         for (long i = 0; i < Z.Nsten; i++){
 
@@ -213,14 +235,16 @@ namespace TDVesselWrite {
 
                 id_next = (*(*Tr.B[Z.IDsten[i] - 1].Kn2).Bou[0]).ID;
 
-                Pd = Tr.B[id_next - 1].Pave[2]; // or Pave[0]
+				ind = int((Tr.B[id_next - 1].pts) / 2); //Median point on edge
+
+                Pd = Tr.B[id_next - 1].Pave[ind]; // or Pave[0]
                  // near bifurcation
                 FFR = Pd/Pa;
 
-                if (id_next <= (Tr.NbrL + 2))
-                    addBr = 2;
+                if (id_next <= (Tr.NbrL))
+                    addBr = 0;
                 else
-                    addBr = Tr.NbrL + 2;
+                    addBr = Tr.NbrL;
 
                 fou <<  Tr.B[Z.IDsten[i] - 1].ID << endl;
                 fou <<  FFR << endl;
@@ -241,23 +265,23 @@ namespace TDVesselWrite {
         fou <<  "Aorta, mmHg" << endl;
         fou <<  Pa/1333.2 << endl;
         fou <<  "Aorta, Qave" << endl;
-        fou <<  Tr.B[0].Qave  << endl;
+        fou <<  -1  << endl; //Tr.B[0].Qave                                                           Need to change
 
 
         fou <<  "LCA" << endl;
 
         for (long i = 0; i < Tr.NbrL; i++){
             fou <<  i+1 << endl;
-            fou <<  Tr.B[i+2].dx << endl;
-            nd = Tr.B[i+2].pts;
+            fou <<  Tr.B[i].dx << endl;
+            nd = Tr.B[i].pts;
             fou <<  nd << endl;
             fou <<  "Qave" << endl;
-            fou <<  Tr.B[i+2].Qave  << endl;
+            fou <<  Tr.B[i].Qave  << endl;
             fou <<  "FFR" << endl;
 
-             for (long j = 0; j < Tr.B[i+2].pts; j++){
+             for (long j = 0; j < Tr.B[i].pts; j++){
 
-                Pd = Tr.B[i+2].Pave[j];
+                Pd = Tr.B[i].Pave[j];
                 FFR = Pd/Pa;
                 fou <<  FFR << endl;
 
@@ -267,16 +291,16 @@ namespace TDVesselWrite {
         fou <<  "RCA" << endl;
         for (long i = 0; i < Tr.NbrR; i++){
             fou <<  i+1 << endl;
-            fou <<  Tr.B[i + 2 + Tr.NbrL].dx << endl;
-            nd = Tr.B[i + 2 + Tr.NbrL].pts;
+            fou <<  Tr.B[i + Tr.NbrL].dx << endl;
+            nd = Tr.B[i + Tr.NbrL].pts;
             fou <<  nd << endl;
             fou <<  "Qave" << endl;
-            fou <<  Tr.B[i + 2 + Tr.NbrL].Qave  << endl;
+            fou <<  Tr.B[i + Tr.NbrL].Qave  << endl;
             fou <<  "FFR" << endl;
 
-             for (long j = 0; j < Tr.B[i + 2 + Tr.NbrL].pts; j++){
+             for (long j = 0; j < Tr.B[i + Tr.NbrL].pts; j++){
 
-                Pd = Tr.B[i + 2 + Tr.NbrL].Pave[j];
+                Pd = Tr.B[i + Tr.NbrL].Pave[j];
                 FFR = Pd/Pa;
                 fou <<  FFR << endl;
 

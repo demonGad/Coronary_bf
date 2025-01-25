@@ -35,6 +35,7 @@ namespace TaskData {
 		double Ps, Pd; //Заданные систолическое и диастолическое давления
 		double Comp; //Заданный параметр жесткости 
 
+		double Qin_; //Поток на входе для записи потока в аорте в TDVesselWrite
 
 		double corPres, vasCoef, Qratio, diamCoef, Pmean, Pout;
 		double HR, SV, Res, PWV, PowM, NL, NR;
@@ -110,15 +111,15 @@ namespace TaskData {
 			}
 			fin.close( );
 
-			filename = Globals::SharedDirectory + "patient.tre";
-			fin.open( filename , ifstream::in );
-			fin >> Psys;
-			fin >> Pdia;
-			Pmean = Pdia + 0.4*(Psys - Pdia);
-			fin >> SV;
-			fin >> HR;
+			//filename = Globals::SharedDirectory + "patient.tre";
+			//fin.open( filename , ifstream::in );
+			//fin >> Psys;
+			//fin >> Pdia;
+			//Pmean = Pdia + 0.4*(Psys - Pdia);
+			//fin >> SV;
+			//fin >> HR;
 
-			fin.close( );
+			//fin.close( );
 
 			//Pfile = Globals::SharedDirectory + "Paortic.tre";
 

@@ -131,7 +131,7 @@ namespace CalculationMethods {
 
                  Hybrid2nd(Z,TreeLst[i],TreeLst[i].B[j]);
 
-                 if ((T > (time_calc - Z.h_period_curr))&&(j!=1)){
+                 if (T > (time_calc - Z.h_period_curr)){
 
                     CalcPave(Z,TreeLst[i].B[j]);
 

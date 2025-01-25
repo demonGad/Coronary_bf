@@ -255,7 +255,7 @@ namespace TreeInitTD {
             ofstream ftime(trim(TDGlobals::root_out) + "time.tres");
             ftime.close();
 
-            var_name = {"s", "u", "p", "q", "pave"};
+            var_name = {"s", "u", "p", "q", "pave","qa"};
             extra_name = SetExtraName(Tr.ID);
             fname_base = trim( TDGlobals::root_out ) + trim( Tr.dirname ) + slash + "result" + slash;
             cout << "NAMEBASE " << fname_base << endl;
@@ -265,8 +265,10 @@ namespace TreeInitTD {
             for (int i = 0; i < var_name.size(); ++i)
             {
                 var_name[i] =  trim( SharedDirectory ) + trim( fname_base ) + var_name[i] + slash;
-				std::wstring wideFolderPath = stringToWstring(var_name[i]);
+				
+				std::wstring wideFolderPath = stringToWstring(var_name[i]); //Удаляем старые файлы
 				deleteFilesInDirectory(wideFolderPath);
+
                 //cout << var_name[i] << " ";
                 //LResult = system( ( "mkdir " + var_name[i] ).c_str( ) );
             }
